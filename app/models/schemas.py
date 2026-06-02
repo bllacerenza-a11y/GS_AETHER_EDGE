@@ -223,3 +223,12 @@ class AlertResponse(BaseModel):
     created_at: datetime
 
     model_config = {"from_attributes": True}
+
+# ==========================================
+# MODELOS PARA O NODE IOT (EDGE)
+# ==========================================
+
+class LeituraIoT(BaseModel):
+    id_estacao: str
+    temperatura: float
+    umidade_ar: float

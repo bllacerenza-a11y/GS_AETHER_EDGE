@@ -1,5 +1,5 @@
 import json
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request, 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from app.api.dependencies import get_db
@@ -11,6 +11,7 @@ from app.models.schemas import (
     AlertResponse,
     ClimateSnapshot,
     RiskDetail,
+    LeituraIoT,
 )
 from app.core.database import RiskAnalysis, Alert
 from app.data_pipeline.open_meteo import OpenMeteoClient
@@ -311,3 +312,37 @@ async def get_active_alerts(
         
     result = await db.execute(query.order_by(Alert.created_at.desc()))
     return result.scalars().all()
+
+# ================================================================
+# 📡 ROTAS DO ECOSSISTEMA EDGE (NÓ IoT / ESP32)
+# ================================================================
+from datetime import datetime
+
+@router.post(
+    "/iot/clima",
+    summary="📡 Receber dados nominais do Edge (ESP32)",
+    description="Rota exclusiva para recebimento de JSON dos sensores físicos IoT baseados no ODS 13."
+)
+async def receber_dados_edge(dados: LeituraIoT):
+    hora = datetime.now().strftime("%H:%M:%S")
+    
+    # Este print vai aparecer brilhando no terminal do VS Code durante o Pitch!
+    print(f"\n[{hora}] 🟢 [ESTAÇÃO: {dados.id_estacao}] Temperatura: {dados.temperatura}°C | Umidade: {dados.umidade_ar}%")
+    
+    return {"status": "sucesso", "mensagem": "Dados do Node IoT sincronizados com a Nuvem"}
+
+
+@router.post(
+    "/iot/urgencia",
+    summary="🚨 Receber alerta crítico do Edge (ESP32)",
+    description="Rota de contingência (Banda Estreita) para receber texto puro quando há risco extremo na borda."
+)
+async def receber_alerta_borda(request: Request):
+    payload = await request.body()
+    alerta = payload.decode("utf-8")
+    hora = datetime.now().strftime("%H:%M:%S")
+    
+    # Este print vermelho sinaliza a ativação da Inteligência Local (US03)
+    print(f"\n[{hora}] 🔴 [EMERGÊNCIA EDGE] ALERTA TÁTICO: {alerta}")
+    
+    return {"status": "alerta_registrado"}
