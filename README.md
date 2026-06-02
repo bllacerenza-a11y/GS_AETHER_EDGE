@@ -1,45 +1,45 @@
 # AETHER Backend MVP 🌍🤖
 
-Geospatial Artificial Intelligence platform for climate risk prediction.
-Built with **FastAPI**, **XGBoost**, **GeoPandas**, and **Open-Meteo** real-time data.
+Plataforma de Inteligência Artificial Geoespacial para previsão de riscos climáticos.
+Construída com **FastAPI**, **XGBoost**, **GeoPandas**, e dados em tempo real da **Open-Meteo**.
 
 ---
 
-## Architecture
+## Arquitetura
 
-```
+```text
 GS_AETHER/
 ├── app/
-│   ├── api/              # FastAPI routes (v1_router)
-│   ├── ai/               # XGBoost risk predictor
-│   ├── core/             # Config & database models
-│   ├── data_pipeline/    # Open-Meteo climate data client
-│   ├── geospatial/       # Shapely/GeoPandas processing
-│   ├── models/           # Pydantic schemas
-│   ├── services/         # Alert engine
-│   └── main.py           # FastAPI application entry point
-├── ai_models/            # Trained ML models (.joblib)
-├── scripts/              # Bootstrap & utility scripts
+│   ├── api/              # Rotas FastAPI (v1_router)
+│   ├── ai/               # Preditor de riscos XGBoost
+│   ├── core/             # Configuração & modelos de banco de dados
+│   ├── data_pipeline/    # Cliente de dados climáticos Open-Meteo
+│   ├── geospatial/       # Processamento Shapely/GeoPandas
+│   ├── models/           # Schemas Pydantic
+│   ├── services/         # Motor de alertas (Alert engine)
+│   └── main.py           # Ponto de entrada da aplicação FastAPI / Menu Terminal
+├── ai_models/            # Modelos de IA treinados (.joblib)
+├── scripts/              # Scripts utilitários e de inicialização
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
 └── .env
 ```
 
-## Local Setup
+## Configuração Local
 
-### 1. Clone & enter directory
+### 1. Clonar & entrar na pasta
 ```bash
 git clone <repo-url>
 cd GS_AETHER
 ```
 
-### 2. Create virtual environment
+### 2. Criar ambiente virtual
 ```bash
 python -m venv venv
 ```
 
-### 3. Activate virtual environment
+### 3. Ativar o ambiente virtual
 ```bash
 # Windows
 .\venv\Scripts\activate
@@ -48,36 +48,45 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-### 4. Install dependencies
+### 4. Instalar dependências
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Bootstrap the AI model (first time only)
+### 5. Inicializar o modelo de IA (Apenas na primeira vez)
 ```bash
 python scripts/bootstrap_ai.py
 ```
 
-### 6. Run the server
+### 6. Modos de Execução
+
+**A. Menu no Terminal (Modo de Avaliação da Global Solution)**
+Execute o script principal diretamente para acessar o menu interativo via terminal (CLI). Este modo foi desenvolvido para demonstrar os conceitos acadêmicos fundamentais de programação (`if-elif-else`, estruturas de repetição, listas e funções) enquanto se integra perfeitamente com os módulos reais de IA.
 ```bash
-uvicorn app.main:app --reload
+python app/main.py
 ```
 
-The API will be available at `http://localhost:8000`.
+**B. Servidor FastAPI (Modo Backend Profissional)**
+Você pode iniciar o backend web completo selecionando a Opção 2 no Menu do Terminal, ou rodando diretamente via uvicorn:
+```bash
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+A API e a interface interativa Swagger estarão disponíveis em `http://127.0.0.1:8000/docs`.
 
 ---
 
-## API Endpoints
+## Endpoints da API
 
-| Method | Endpoint | Description |
+| Método | Endpoint | Descrição |
 |--------|----------|-------------|
-| `GET`  | `/` | Health check |
-| `POST` | `/api/v1/analyze/flood` | Analyze flood risk for a location |
-| `GET`  | `/api/v1/alerts/active` | List all active alerts |
+| `GET`  | `/health` | Checagem de saúde (Health check) |
+| `POST` | `/api/v1/analyze/flood` | Analisar risco de inundação para um local |
+| `GET`  | `/api/v1/alerts/active` | Listar todos os alertas ativos |
 
-### Example: Analyze Flood Risk
+### Exemplo: Analisar Risco de Inundação
 ```bash
-curl -X POST http://localhost:8000/api/v1/analyze/flood \
+curl -X POST http://127.0.0.1:8000/api/v1/analyze/flood \
   -H "Content-Type: application/json" \
   -d '{"latitude": -23.55, "longitude": -46.63}'
 ```
@@ -92,11 +101,11 @@ docker-compose up --build
 
 ---
 
-## Tech Stack
+## Tecnologias Utilizadas (Tech Stack)
 
-- **FastAPI** — High-performance async web framework
-- **XGBoost** — Gradient boosted trees for risk prediction
-- **GeoPandas / Shapely** — Geospatial data processing
-- **Open-Meteo API** — Free real-time climate data
-- **SQLAlchemy** — ORM with SQLite (MVP) / PostgreSQL-ready
-- **Pydantic** — Data validation and serialization
+- **FastAPI** — Framework web assíncrono de alta performance
+- **XGBoost** — Árvores de decisão impulsionadas por gradiente para previsão de riscos
+- **GeoPandas / Shapely** — Processamento de dados geoespaciais
+- **Open-Meteo API** — Dados climáticos em tempo real (Gratuito)
+- **SQLAlchemy** — ORM com SQLite (MVP) / Preparado para PostgreSQL
+- **Pydantic** — Validação e serialização de dados
