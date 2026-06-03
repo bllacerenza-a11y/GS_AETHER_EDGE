@@ -11,3 +11,4 @@ shapely
 geopandas
 numpy
 pandas
+aiosqlite
