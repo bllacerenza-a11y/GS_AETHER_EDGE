@@ -1,5 +1,5 @@
 import json
-from fastapi import APIRouter, Depends, HTTPException, Request, 
+from fastapi import APIRouter, Depends, HTTPException, Request 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from app.api.dependencies import get_db
