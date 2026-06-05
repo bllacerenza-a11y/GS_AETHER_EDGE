@@ -18,6 +18,23 @@ O ecossistema AETHER foi desenhado para ser resiliente e escalável, dividindo a
 * **Resiliência (Edge Computing):** O hardware possui uma Máquina de Estados própria. Se houver falha de rede ou detecção de calor extremo, o ESP32 corta o processamento, aciona um alerta tático (LED Vermelho) localmente e salva os dados em um *Buffer FIFO* offline.
 * **Data Recovery:** Assim que a rede é restabelecida, o Edge Node descarrega os pacotes perdidos para a nuvem de forma ordenada.
 
+AETHER_PROJECT/
+├── app/                      # ☁️ BACKEND (Lógica em Python)
+│   ├── api/                  # Rotas e Endpoints do FastAPI (v1_router)
+│   ├── ai/                   # Preditor de riscos utilizando XGBoost
+│   ├── core/                 # Configurações e modelos do Banco de Dados
+│   ├── data_pipeline/        # Cliente de dados climáticos Open-Meteo
+│   ├── geospatial/           # Processamento e Geometria (Shapely/GeoPandas)
+│   ├── models/               # Schemas de validação de dados (Pydantic)
+│   ├── services/             # Motor de regras e engine de alertas
+│   └── main.py               # Ponto de entrada da API e Worker Assíncrono
+├── ai_models/                # Modelos de IA pré-treinados
+├── scripts/                  # Scripts utilitários e de inicialização
+├── sketch.ino                # 🔌 BORDA (C++) - Firmware principal do ESP32/Wokwi
+├── requirements.txt          # Lista de dependências do Python
+├── Dockerfile                # Instruções de Containerização do Backend
+└── docker-compose.yml        # Orquestração de serviços em nuvem
+
 ---
 
 # 🌍 AETHER - Plataforma de Inteligência Climática (Cloud & Edge)
@@ -25,10 +42,9 @@ O ecossistema AETHER foi desenhado para ser resiliente e escalável, dividindo a
 **Global Solution - ODS 13 (Ação Contra a Mudança Global do Clima)**
 
 ## 👥 Equipe de Desenvolvimento
-* **[Seu Nome Completo]** - RM: [Seu RM]
-* **Arthur [Sobrenome]** - RM: [RM do Arthur]
-* **[Nome do Integrante 3]** - RM: [RM do Integrante 3] *(Se houver)*
-* **[Nome do Integrante 4]** - RM: [RM do Integrante 4] *(Se houver)*
+* **Bruno Bastos** - RM: 569434
+* **Arthur Sgarbi** - RM: 569774
+* **Pedro Oliveira** - RM: 572468
 
 ---
 
