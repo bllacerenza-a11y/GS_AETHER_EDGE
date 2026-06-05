@@ -19,7 +19,7 @@ O ecossistema AETHER foi desenhado para ser resiliente e escalável, dividindo a
 * **Data Recovery:** Assim que a rede é restabelecida, o Edge Node descarrega os pacotes perdidos para a nuvem de forma ordenada.
 
 ```text
-AETHER_PROJECT/
+AETHER_PROJECT/               # 🚨 CÓDIGO PRINCIPAL (C++) - Firmware de Borda (ESP32/Wokwi) - sketch.ino
 ├── app/                      # ☁️ BACKEND (Lógica em Python)
 │   ├── api/                  # Rotas e Endpoints do FastAPI (v1_router)
 │   ├── ai/                   # Preditor de riscos utilizando XGBoost
@@ -35,6 +35,8 @@ AETHER_PROJECT/
 ├── requirements.txt          # Lista de dependências do Python
 ├── Dockerfile                # Instruções de Containerização do Backend
 └── docker-compose.yml        # Orquestração de serviços em nuvem
+
+Todo e qualquer tipo de código além do c++ contido no sketch.ino, é complementar justamente pela integração que o nosso projeto apresenta com o backend de python, integração essa que simularia o envio de dados obtidos através de satélites e aparatos espaciais como starlink, para o arduíno fisico presente em fazendas, lavouras e afins.
 ```
 
 ---
