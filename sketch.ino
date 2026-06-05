@@ -10,6 +10,7 @@
 #define DHTTYPE DHT22     
 #define LED_VERDE 21      // Indicador de Estado Nominal / Recovery
 #define LED_VERMELHO 19   // Indicador de Emergência / Falha de Rede
+#define PINO_CABO_REDE 18 // Simulador Físico de Conexão (Slide Switch)
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -54,6 +55,7 @@ void setup() {
   
   pinMode(LED_VERDE, OUTPUT);
   pinMode(LED_VERMELHO, OUTPUT);
+  pinMode(PINO_CABO_REDE, INPUT); // Configura a leitura da chavinha
   
   dht.begin(); 
 
@@ -68,7 +70,11 @@ void loop() {
   if (tempoAtual - tempoAnterior >= intervaloEnvio) {
     tempoAnterior = tempoAtual;
     
-    bool redeConectada = (WiFi.status() == WL_CONNECTED);
+    // VERIFICAÇÃO DUPLA DE REDE (Wi-Fi Virtual + Chavinha Física)
+    bool sinalWiFi = (WiFi.status() == WL_CONNECTED);
+    bool switchInternet = (digitalRead(PINO_CABO_REDE) == HIGH); // HIGH = Ligado, LOW = Cortado
+    bool redeConectada = (sinalWiFi && switchInternet);
+
     float tempAtual = dht.readTemperature();
     float umidAtual = dht.readHumidity();
 
@@ -86,7 +92,7 @@ void loop() {
         estadoAtual = NOMINAL;
       }
     } else {
-      estadoAtual = EMERGENCIA; // Caiu a rede ou calor extremo
+      estadoAtual = EMERGENCIA; // Caiu a rede (chave desligada) ou calor extremo
     }
 
     // ⚡ EXECUÇÃO DE ACORDO COM O ESTADO ATUAL
@@ -103,7 +109,7 @@ void loop() {
         Serial.println("\n🔴 [ESTADO 2] EMERGÊNCIA ATIVADA");
         
         if (!redeConectada) {
-          Serial.println("❌ Falha de Conexão. Retendo dados na borda...");
+          Serial.println("❌ Falha de Conexão Física. Retendo dados na borda...");
           salvarNoBuffer(tempAtual, umidAtual);
         } else if (tempAtual > LIMITE_TEMP_CRITICA) {
           Serial.println("🔥 Alerta de Risco Climático Extremo!");
