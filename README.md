@@ -20,11 +20,6 @@ O ecossistema AETHER foi desenhado para ser resiliente e escalável, dividindo a
 
 ---
 
-### Passo 1: Ligando a API (Nuvem)
-Você pode rodar o backend localmente ou enviá-lo para a nuvem (como o **Render**):
-1. Instale as dependências: `pip install -r requirements.txt`
-2. Inicie o servidor: `uvicorn app.
-
 # 🌍 AETHER - Plataforma de Inteligência Climática (Cloud & Edge)
 
 **Global Solution - ODS 13 (Ação Contra a Mudança Global do Clima)**
