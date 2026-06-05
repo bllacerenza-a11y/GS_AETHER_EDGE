@@ -19,12 +19,12 @@ DHT dht(DHTPIN, DHTTYPE);
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
-// ⚠️ ATENÇÃO: Troque pelo link do seu Ngrok ou Render (Mantenha sem a barra / no final)
-String serverHost = "https://SEU_LINK_AQUI.ngrok-free.app";
+// ⚠️ ATENÇÃO: Troque pelo link do seu túnel SSH (Localhost.run) (Mantenha sem a barra / no final e use http)
+String serverHost = "http://SEU_LINK_AQUI.lhr.life";
 
-// Endpoints da sua API FastAPI
-String endpointClima = serverHost + "/iot/clima";
-String endpointUrgencia = serverHost + "/iot/urgencia";
+// Endpoints da sua API FastAPI (Com prefixo de versão /api/v1)
+String endpointClima = serverHost + "/api/v1/iot/clima";
+String endpointUrgencia = serverHost + "/api/v1/iot/urgencia";
 
 // ==========================================
 // 🧠 MÁQUINA DE ESTADOS E BUFFER LÓGICO
