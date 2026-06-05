@@ -18,6 +18,7 @@ O ecossistema AETHER foi desenhado para ser resiliente e escalável, dividindo a
 * **Resiliência (Edge Computing):** O hardware possui uma Máquina de Estados própria. Se houver falha de rede ou detecção de calor extremo, o ESP32 corta o processamento, aciona um alerta tático (LED Vermelho) localmente e salva os dados em um *Buffer FIFO* offline.
 * **Data Recovery:** Assim que a rede é restabelecida, o Edge Node descarrega os pacotes perdidos para a nuvem de forma ordenada.
 
+```text
 AETHER_PROJECT/
 ├── app/                      # ☁️ BACKEND (Lógica em Python)
 │   ├── api/                  # Rotas e Endpoints do FastAPI (v1_router)
@@ -34,6 +35,7 @@ AETHER_PROJECT/
 ├── requirements.txt          # Lista de dependências do Python
 ├── Dockerfile                # Instruções de Containerização do Backend
 └── docker-compose.yml        # Orquestração de serviços em nuvem
+```
 
 ---
 
