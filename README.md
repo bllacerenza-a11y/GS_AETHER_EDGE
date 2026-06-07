@@ -62,16 +62,7 @@ Para garantir a máxima fidelidade no desenvolvimento, simulação e avaliação
 > Todas as demais pastas de Backend (Python, IA e Banco de Dados) foram construídas como uma **infraestrutura complementar** para provar a integração real do nosso hardware com a nuvem, demonstrando uma aplicação ponta a ponta.
 
 ```text
-AETHER_PROJECT/
-├── sketch.ino                # 🚨 CÓDIGO PRINCIPAL (C++) - Firmware de Borda (ESP32/Wokwi)
-│
-├── app/                      # ☁️ BACKEND COMPLEMENTAR (Lógica em Python)
-│   ├── api/                  # Rotas e Endpoints do FastAPI consumidas pelo C++
-│   ├── ai/                   # Preditor de riscos utilizando XGBoost
-│   ├── core/                 # Configurações e modelos do Banco de Dados
-│   └── main.py               # Ponto de entrada da API e Worker Assíncrono
-├── scripts/                  # Scripts utilitários e de inicialização
-└── requirements.txt          # Lista de dependências do Python
+
 ## 🏗️ Arquitetura do Sistema
 
 O ecossistema AETHER foi desenhado para ser resiliente e escalável, dividindo as responsabilidades em dois pilares principais:
