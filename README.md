@@ -98,9 +98,6 @@ AETHER_PROJECT/               # 🚨 CÓDIGO PRINCIPAL (C++) - Firmware de Borda
 
 Todo e qualquer tipo de código além do c++ contido no sketch.ino, é complementar justamente pela integração que o nosso projeto apresenta com o backend de python, integração essa que simularia o envio de dados obtidos através de satélites e aparatos espaciais como starlink, para o arduíno fisico presente em fazendas, lavouras e afins.
 ```
-
----
-
 ```text
 ┌─────────────────────────────────┐          Túnel de Rede         ┌──────────────────────────────────┐
 │       BORDA (Wokwi/ESP32)       │ ─────────────────────────────> │       NUVEM (FastAPI/Python)     │
@@ -109,20 +106,6 @@ Todo e qualquer tipo de código além do c++ contido no sketch.ino, é complemen
 │  - Buffer FIFO de Contingência  │                                │  - Heurísticas e IA (XGBoost)    │
 └─────────────────────────────────┘                                └──────────────────────────────────┘
 
-
 ---
 
-## ⚙️ Explicação do Funcionamento (Arquitetura do Sistema)
 
-Para garantir a máxima fidelidade no desenvolvimento, simulação e avaliação do ecossistema, os componentes de **Nuvem (Backend Python)** e **Borda (Firmware ESP32)** foram unificados neste repositório. O backend atua como o servidor central de telemetria e o simulador de hardware consome rotas dinâmicas, espelhando exatamente o comportamento de um ambiente de produção real.
-
-### 1. O Sistema Nervoso na Borda (Node IoT Edge / ESP32)
-* **Sensores de Campo:** O ESP32 lê continuamente os dados do DHT22 local.
-* **Resiliência (Edge Computing):** O hardware possui uma Máquina de Estados própria. Se houver falha de rede (Slide Switch em LOW) ou detecção de calor extremo (> 40°C), o ESP32 corta o processamento pesado, aciona o LED Vermelho localmente e salva os dados críticos em um **Buffer FIFO** na própria memória (Offline).
-* **Data Recovery:** Assim que a rede é restabelecida, o Edge Node descarrega os pacotes perdidos para a nuvem de forma ordenada, garantindo que o histórico nunca seja perdido.
-
-### 2. O Cérebro na Nuvem (Backend Python / FastAPI)
-* **Inteligência:** Utiliza modelos preditivos cruzando dados meteorológicos em tempo real.
-* **Autonomia:** Possui um *Background Worker* assíncrono que varre as regiões cadastradas silenciosamente e dispara alertas no banco de dados.
-
----
