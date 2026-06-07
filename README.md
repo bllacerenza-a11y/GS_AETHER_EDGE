@@ -10,7 +10,8 @@
 ---
 
 ## 🔗 Links Importantes (Avaliação)
-* **Simulação (Wokwi): https://wokwi.com/projects/465729595873688577**
+* **Simulação (Wokwi): https://wokwi.com/projects/465729595873688577
+**
 ---
 
 ## 🎯 Objetivo da Solução
